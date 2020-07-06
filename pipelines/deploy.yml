@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - master
+
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml
+variables:
+  - group: sls-deploy-creds
+
+jobs:
+  - job: 'Deploy_Azure_Function_App'
+    timeoutInMinutes: 10
+    cancelTimeoutInMinutes: 1
+
+    pool:
+      vmImage: 'ubuntu-18.04'
+
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: 10.x
+        displayName: 'Install Node.js'
+
+      - bash: |
+          npm install -g serverless
+        displayName: 'Install Serverless'
+        # Deploy service with prefix `gh`, stage `prod` and to region `West Europe`
+      - bash: |
+          npm ci
+          sls deploy --prefix gh --stage prod --region "West Europe"
+        env:
+          AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+          AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+          AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+          AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+        displayName: 'Deploy Azure Function App'

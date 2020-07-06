@@ -1,0 +1,36 @@
+# Only run on Pull Requests into `master` or `dev`
+pr:
+  branches:
+    include:
+      - master
+      - dev
+
+# Run pipeline on node 8 and 10 on Linux, Mac and Windows
+strategy:
+  matrix:
+    Linux_Node12:
+      imageName: 'ubuntu-18.04'
+      node_version: 12.x
+    Mac_Node12:
+      imageName: 'macos-10.15'
+      node_version: 12.x
+    Windows_Node12:
+      imageName: 'win1803'
+      node_version: 12.x
+
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops#use-a-microsoft-hosted-agent
+pool:
+  vmImage: $(imageName)
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(node_version)
+    displayName: 'Install Node.js'
+
+  # Make pipeline fail if tests or linting fail, linting occurs in `pretest` script
+  - bash: |
+      set -euo pipefail
+      npm ci
+      npm test
+    displayName: 'Run tests'
