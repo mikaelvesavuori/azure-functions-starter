@@ -29,5 +29,4 @@ steps:
       set -euo pipefail
       npm ci
       npm test
-      npm run test:integration
     displayName: 'Run tests'
