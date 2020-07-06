@@ -8,6 +8,8 @@ Based on the standard boilerplate generated from the VS Code extension and [How 
 
 Please see the final section for warning, issues and things to know when dealing with Azure Functions through Serverless Framework.
 
+_This repo will most likely require Node 14+ if you want to just start with no changes on your part!_
+
 **Stack**:
 
 - [Serverless Framework](https://www.serverless.com)
@@ -70,7 +72,7 @@ Run `npm test` or `yarn test`.
 
 Unit tests are stored in `__tests__/unit/` and are run with Jest.
 
-Integration tests are stored in `__tests__/integration/` and are run with Superagent.
+Integration tests are stored in `__tests__/integration/` and are run with Superagent. Make sure to set your API endpoint configuration in `config.mjs` in the root.
 
 You'll find test data stored under `testdata/`.
 
