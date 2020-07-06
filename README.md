@@ -84,6 +84,13 @@ Always commit and push code, and let the CI do deployment for any other stages.
 
 Description coming.
 
+- Search for "devops" and go to Azure DevOps inside of the Azure GUI
+- Go to your DevOps Organizations and create one if needed; create a new project
+- Once you have a project, click on Pipelines and point to where your repo is (Bitbucket, GitHub...)
+- Once you've done any credential setup or such, select an existing pipeline
+
+See steps 7 and 8 at [https://www.serverless.com/blog/serverless-azure-functions-v1-part2](https://www.serverless.com/blog/serverless-azure-functions-v1-part2) for more details.
+
 ## References
 
 - [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
