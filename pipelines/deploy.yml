@@ -7,24 +7,29 @@ trigger:
 variables:
   - group: sls-deploy-creds
 
+strategy:
+  matrix:
+    Linux_Node14:
+      imageName: "ubuntu-18.04"
+      node_version: 14.x
+
 jobs:
   - job: 'Deploy_Azure_Function_App'
     timeoutInMinutes: 10
     cancelTimeoutInMinutes: 1
 
     pool:
-      vmImage: 'ubuntu-18.04'
+      vmImage: $(imageName)
 
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: 12.x
+        versionSpec: $(node_version)
         displayName: 'Install Node.js'
 
       - bash: |
           npm install -g serverless
         displayName: 'Install Serverless'
-        # Deploy service with prefix `gh`, stage `prod` and to region `West Europe`
       - bash: |
           npm ci
           sls deploy --prefix gh --stage prod --region "West Europe"

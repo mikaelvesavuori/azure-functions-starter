@@ -6,15 +6,9 @@ pr:
 
 strategy:
   matrix:
-    Linux_Node12:
-      imageName: 'ubuntu-18.04'
-      node_version: 12.x
-    #Mac_Node12:
-    #  imageName: 'macos-10.15'
-    #  node_version: 12.x
-    #Windows_Node12:
-    #  imageName: 'win1803'
-    #  node_version: 12.x
+    Linux_Node14:
+      imageName: "ubuntu-18.04"
+      node_version: 14.x
 
 pool:
   vmImage: $(imageName)
@@ -23,10 +17,10 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: $(node_version)
-    displayName: 'Install Node.js'
+    displayName: "Install Node.js"
 
   - bash: |
       set -euo pipefail
       npm ci
       npm test
-    displayName: 'Run tests'
+    displayName: "Run tests"

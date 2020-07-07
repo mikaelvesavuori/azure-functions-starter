@@ -93,6 +93,8 @@ Description coming.
 
 See steps 7 and 8 at [https://www.serverless.com/blog/serverless-azure-functions-v1-part2](https://www.serverless.com/blog/serverless-azure-functions-v1-part2) for more details.
 
+See [https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml) for how to set up your variable group.
+
 ## References
 
 - [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
@@ -108,3 +110,8 @@ See steps 7 and 8 at [https://www.serverless.com/blog/serverless-azure-functions
 - You cannot set currently (July 2020) set timeout, memory size, or OS type for functions through `serverless.yml`.
 - There is supposedly support to configure `apim` (API Management) in `serverless.yml` but somehow you will start getting deployment errors (`-> Function App not ready. Retry 0 of 30...` and continuing) if you mess about with that stuff. To the best of my abilities, I think I've located the error to be on the `backends` section. Maybe it's not mapping correctly? Following a slightly modified version of the config in the [Serverless Framework provider reference](https://www.serverless.com/framework/docs/providers/azure/guide/serverless.yml/) does not work, at least.
 - Serverless Framework and Azure together seem to have—at best—a fragile friendship. Expect that deployments stop working every now and then. Resolution is unclear; removing and redeploying (while a useless option that cannot be done safely in production) does not always seem to work either. Moving the region (also unsafe) seems to work better, but only ever do that _during_ development and not after.
+
+## TODO
+
+- Failed integration tests do not currently break the pipeline
+- Logger is not yet implemented
