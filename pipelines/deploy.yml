@@ -26,7 +26,7 @@ steps:
     displayName: 'Install Serverless'
 
   - bash: |
-      # npm ci
+      npm ci
       sls deploy --prefix gh --stage prod --region "West Europe"
     env:
       AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
