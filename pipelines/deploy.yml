@@ -3,7 +3,6 @@ trigger:
     include:
       - master
 
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml
 variables:
   - group: sls-deploy-creds
 
@@ -13,13 +12,13 @@ strategy:
       imageName: "ubuntu-18.04"
       node_version: 14.x
 
+pool:
+  vmImage: $(imageName)
+
 jobs:
   - job: 'Deploy_Azure_Function_App'
     timeoutInMinutes: 10
     cancelTimeoutInMinutes: 1
-
-    pool:
-      vmImage: $(imageName)
 
     steps:
       - task: NodeTool@0
@@ -30,6 +29,7 @@ jobs:
       - bash: |
           npm install -g serverless
         displayName: 'Install Serverless'
+
       - bash: |
           npm ci
           sls deploy --prefix gh --stage prod --region "West Europe"
