@@ -5,14 +5,8 @@ export const Context = {
     functionName: 'string',
     functionDirectory: 'string'
   },
-  /*
-	bindings: {
-			[key: string]: any;
-	},
-	bindingData: {
-			[key: string]: any;
-	},
-	*/
+  bindings: [],
+  bindingData: [],
   traceContext: {
     traceparent: 'string',
     tracestate: 'string',
@@ -22,11 +16,9 @@ export const Context = {
     name: 'string',
     type: 'string',
     direction: 'in'
-  }
+  },
   //log: Logger;
   //done = () => err?: Error | string | null, result?: any): void
   //req: HttpRequest;
-  //res?: {
-  //		[key: string]: any;
-  //};
+  res: []
 };

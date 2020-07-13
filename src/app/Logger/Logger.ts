@@ -1,6 +1,11 @@
 import { LogMessageInterface } from '../../domain/Logger/LogMessageInterface';
 import { LoggerInterface } from '../../domain/Logger/LoggerInterface';
 
+/**
+ * @desc Logger is just a very basic logging utility
+ * @class
+ * @implements {LoggerInterface}
+ */
 export class Logger implements LoggerInterface {
   readonly userId: string | null;
 

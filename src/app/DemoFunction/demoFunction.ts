@@ -3,9 +3,13 @@ import { Context, HttpRequest } from '@azure/functions';
 import { Logger } from '../Logger/Logger';
 import { demoResponse } from './demoResponse';
 
+/**
+ * @desc This is a simple demo function, to give you a hint of how you could write your Azure Functions
+ * @param context - Context object
+ * @param req - Incoming HTTP request
+ */
 export function demoFunction(context: Context, req: HttpRequest): Object {
-  //const userId: string = req.query.userId || (req.body && req.body.userId);
-  const userId: string = '92as84m2';
+  const userId: string = req.query.userId || (req.body && req.body.userId);
   const logger = new Logger({ userId });
 
   logger.log({

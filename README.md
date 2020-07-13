@@ -13,7 +13,7 @@ _This repo will most likely require Node 14+ if you want to just start with no c
 **Stack**:
 
 - [Serverless Framework](https://www.serverless.com)
-- [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) + [API Management](https://azure.microsoft.com/en-us/services/api-management/) + [Azure Pipelines/DevOps](https://azure.microsoft.com/en-us/services/devops/pipelines/) + [Azure Storage](https://azure.microsoft.com/en-us/services/storage/)
+- [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) + [API Management](https://azure.microsoft.com/en-us/services/api-management/) + [Azure Pipelines/DevOps](https://azure.microsoft.com/en-us/services/devops/pipelines/) + [Azure Storage](https://azure.microsoft.com/en-us/services/storage/) (for storing the function)
 - [Webpack](https://webpack.js.org) for bundling and optimizing
 - [Babel](https://babeljs.io) for transpiling files
 - [Typescript](https://www.typescriptlang.org) so we can write better code
@@ -31,19 +31,16 @@ Plus: It also uses `.mjs` or modern, modular Javascript files to allow support f
 - **`src/[FUNCTION NAME]`**: Functions, methods, classes, what have you. Should be regular JS and dissociated from the Azure function handler (so they can remain free-standing and testable)
 - **`src/handlers`**: The base-level handlers that you will supply inside of `serverless.yml`; these should point to code in the function-named subfolders
 - **`src/shared`**: Utilities or other shared/common code
-- **`testdata`**: Test data
+- **`testdata`**: Test data and more-or-less usable mock Context and Request objects
 
-Configuration can be set in `config.mjs` in the root.
+## Configuration
 
-## RECOMMENDED: Manual tasks to do
-
-- Turn on Application Insights in API Management view
-- Set timeout to something reasonable like 20 seconds max (possible?)
+Configuration should be set in `config.mjs` in the root for application level things, and in `serverless.yml` for anything that has to do with the deployment.
 
 ## Log in to Azure
 
-- `az account clear`
-- `az login`
+1. `az account clear`
+2. `az login`
 
 Then set credentials as per instructions at [https://github.com/serverless/serverless-azure-functions#advanced-authentication](https://github.com/serverless/serverless-azure-functions#advanced-authentication).
 
@@ -68,11 +65,10 @@ _Your Node version will need to be 12_ (or whatever version is used on Azure). O
 
 ## Testing
 
-Run `npm test` or `yarn test`.
+Run `npm test` or `yarn test`. This will likely only work with Node 13/14+ since tests use `.mjs` format.
 
-Unit tests are stored in `__tests__/unit/` and are run with Jest.
-
-Integration tests are stored in `__tests__/integration/` and are run with Superagent. Make sure to set your API endpoint configuration in `config.mjs` in the root.
+- **Unit tests** are stored in `__tests__/unit/` and are run with Jest.
+- **Integration tests** are stored in `__tests__/integration/` and are run with Superagent. Make sure to set your API endpoint configuration in `config.mjs` in the root.
 
 You'll find test data stored under `testdata/`.
 
@@ -84,22 +80,26 @@ Always commit and push code, and let the CI do deployment for any other stages.
 
 ## CI/CD
 
-Description coming.
+There is a small setup already in place for CI/CD on Azure DevOps.
 
+You will need to prepare a bit first:
+
+- Ensure that your code is uploaded to a repository somewhere (Bitbucket, GitHub...)
+- Open up the Azure portal
 - Search for "devops" and go to Azure DevOps inside of the Azure GUI
 - Go to your DevOps Organizations and create one if needed; create a new project
-- Once you have a project, click on Pipelines and point to where your repo is (Bitbucket, GitHub...)
+- Once you have a project, click on Pipelines and point to where your repo is located (Bitbucket, GitHub...)
 - Once you've done any credential setup or such, select an existing pipeline
 
 See steps 7 and 8 at [https://www.serverless.com/blog/serverless-azure-functions-v1-part2](https://www.serverless.com/blog/serverless-azure-functions-v1-part2) for more details.
 
-See [https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml) for how to set up your variable group.
+See [https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml) for how to set up your variable group correctly. That's how you will pass on keys needed to deploy.
 
 ## Logging
 
-According to the Azure docs, "Structured logging isn't enabled" for Node currently. Nevertheless, you should be able to get logs working just fine with `console.log`. I've included a simple Logger that you can use to get some kind of structured logging working.
+According to the Azure docs, "Structured logging isn't enabled" for Node currently. Nevertheless, you should be able to get logs working just fine with `console.log`. I've included a simple Logger that you can use to get some kind of "structured-ish" logging working.
 
-Logs are available in [Azure Monitor Logs](https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/logs) and xxxx.
+Logs are available in [Azure Monitor Logs](https://portal.azure.com/#blade/Microsoft_Azure_Monitoring/AzureMonitoringBrowseBlade/logs) and `Monitoring > Log stream` in the Functions App panel.
 
 **References**:
 
@@ -126,4 +126,3 @@ Logs are available in [Azure Monitor Logs](https://portal.azure.com/#blade/Micro
 ## TODO
 
 - Failed integration tests do not currently break the pipeline
-- Logger is not yet implemented
