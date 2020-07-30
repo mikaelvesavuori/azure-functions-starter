@@ -1,5 +1,5 @@
 /**
- * @desc Interface for log messages
+ * @description Interface for log messages
  * @interface
  */
 export interface LogMessageInterface {

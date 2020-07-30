@@ -3,5 +3,5 @@ export const invalidTestData = {
 };
 
 export const validTestData = {
-  body: 'Heya!'
+  body: 'This is the response from your demo function!'
 };

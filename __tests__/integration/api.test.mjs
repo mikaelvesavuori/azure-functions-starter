@@ -1,7 +1,7 @@
 import superagent from 'superagent';
 
 import { config } from '../../config.mjs';
-import { validTestData } from '../../testdata/integration/api.testdata.mjs';
+import { validTestData } from '../testdata/integration/api.testdata.mjs';
 
 const expected = validTestData;
 

@@ -18,15 +18,15 @@ package:
     - .vscode/**
 
 functions:
-  demoFunction:
-    handler: src/handlers/demoFunction.handler
+  demo:
+    handler: src/app/controllers/demo.demoController
     events:
       - http: true
         x-azure-settings:
           name: req
-          methods: ['get']
+          methods: ['GET']
           authLevel: function
       - http: true
         x-azure-settings:
-          name: res
+          name: $return
           direction: out

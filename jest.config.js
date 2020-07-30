@@ -6,6 +6,7 @@ module.exports = {
     '^.+\\.mjs$': 'babel-jest',
     '^.+\\.ts$': 'ts-jest'
   },
-  moduleFileExtensions: ['js', 'mjs'],
-  testMatch: ['**/__tests__/unit/*.test.+(js|mjs)']
+  moduleFileExtensions: ['js', 'mjs', 'ts'],
+  testMatch: ['**/__tests__/unit/*.test.+(js|mjs)'],
+  testPathIgnorePatterns: ['/node_modules/']
 };

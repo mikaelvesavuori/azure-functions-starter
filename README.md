@@ -51,10 +51,17 @@ Run `sls offline`. After a bit of building files and doing its magic, you get a 
 ```
 Http Functions:
 
-demoFunction: [GET] http://localhost:7071/api/demoFunction
+demo: [GET] http://localhost:7071/api/demo
 ```
 
 Hit that URL and you're ready! It doesn't do auto-reloads though.
+
+To send an example query parameter (`userId`) do the below:
+
+```
+/ GET
+http://localhost:7071/api/demo?userId=someUserNameHere
+```
 
 **NOTE!**
 _Your Node version will need to be 12_ (or whatever version is used on Azure). One way of handling multiple Node versions is with [`nvm`](https://github.com/nvm-sh/nvm). If you are set on using it, these instructions should get you up and ready for development:

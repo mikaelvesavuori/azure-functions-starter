@@ -17,7 +17,7 @@ export const Context = {
     type: 'string',
     direction: 'in'
   },
-  //log: Logger;
+  log: () => null,
   //done = () => err?: Error | string | null, result?: any): void
   //req: HttpRequest;
   res: []
