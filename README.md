@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/212ed59c0aa093d65af8/maintainability)](https://codeclimate.com/github/mikaelvesavuori/azure-functions-starter/maintainability)
+
 # Azure Functions starter with Typescript, Webpack, Serverless Framework and Jest
 
 Azure Functions can be a real hassle to get going with—I know the feeling!
